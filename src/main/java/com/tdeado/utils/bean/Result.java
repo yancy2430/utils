@@ -2,26 +2,18 @@ package com.tdeado.utils.bean;
 
 import org.apache.commons.lang.StringUtils;
 
-import java.util.List;
-
+/**
+ * 数据返回结构bean
+ */
 public class Result {
     private int code;
     private String msg;
     private Object data;
-    private List state;
     public static Result ok(Object object){
         Result ret=new Result();
         ret.setCode(0);
         ret.setMsg("success");
         ret.setData(object);
-        return ret;
-    }
-    public static Result ok(Object object,List map){
-        Result ret=new Result();
-        ret.setCode(0);
-        ret.setMsg("success");
-        ret.setData(object);
-        ret.setState(map);
         return ret;
     }
     public static Result err(String msg){
@@ -40,14 +32,6 @@ public class Result {
     }
     public int getCode() {
         return code;
-    }
-
-    public List getState() {
-        return state;
-    }
-
-    public void setState(List state) {
-        this.state = state;
     }
 
     public void setCode(int code) {
