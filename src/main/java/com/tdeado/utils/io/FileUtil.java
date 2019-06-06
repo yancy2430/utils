@@ -1,4 +1,4 @@
-package com.tdeado.utils.file;
+package com.tdeado.utils.io;
 
 import java.io.File;
 import java.io.FileOutputStream;
