@@ -18,7 +18,6 @@ public class RandomUtil {
 
     /**
      * 生成32位字符串
-     * kji\ughuk\
      * @return
      */
     public static String create32RandomString() {
