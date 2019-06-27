@@ -14,8 +14,8 @@ public class TreeUtil {
     public static List<Map<String, Object>> getLevelData(List<Map<String, Object>> dbList, String parentcode,String idField,String upidField,String sonField) {
         List<Map<String, Object>> resultList = new ArrayList<>();
         for (Map<String, Object> data : dbList) {
-            if (String.valueOf(data.get(upidField)).equals(parentcode)) {
-                List<Map<String, Object>> childList = getLevelData(dbList, (String) data.get(idField),idField,upidField,sonField);
+            if (String.valueOf(data.get(upidField)).split("\\.")[0].equals(parentcode)) {
+                List<Map<String, Object>> childList = getLevelData(dbList, String.valueOf(data.get(idField)).split("\\.")[0],idField,upidField,sonField);
                 data.put(sonField, childList);
                 resultList.add(data);
             }
@@ -41,4 +41,5 @@ public class TreeUtil {
         }
         return resultList;
     }
+
 }

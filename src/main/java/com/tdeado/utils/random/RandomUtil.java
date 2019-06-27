@@ -18,6 +18,7 @@ public class RandomUtil {
 
     /**
      * 生成32位字符串
+     * kji\ughuk\
      * @return
      */
     public static String create32RandomString() {
@@ -41,6 +42,7 @@ public class RandomUtil {
      * @return
      */
     public static String createRandomString(int length, int type) {
+
         String sourcesNum = "0123456789"; // 加上一些字母，就可以生成pc站的验证码了
         String sourcesStr = "abcdefghijklmnopqrstuvwxyz"; // 加上一些字母，就可以生成pc站的验证码了
         Random rand = new Random();
