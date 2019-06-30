@@ -1,7 +1,8 @@
 package com.tdeado.utils.io;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 文件工具类
@@ -14,7 +15,7 @@ public class FileUtil {
      * @param fileName
      * @throws Exception
      */
-    public static void saveFile(byte[] file, String filePath, String fileName) throws Exception {
+    public static boolean saveFile(byte[] file, String filePath, String fileName) throws Exception {
         File targetFile = new File(filePath);
         if(!targetFile.exists()){
             targetFile.mkdirs();
@@ -23,5 +24,11 @@ public class FileUtil {
         out.write(file);
         out.flush();
         out.close();
+        return true;
     }
+
+    public static boolean createFile(String newVersion) throws IOException {
+        return true;
+    }
+
 }
