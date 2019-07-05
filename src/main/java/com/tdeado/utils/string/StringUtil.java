@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 public class StringUtil {
 
 
-
     /**
      * 下划线转驼峰
      *
@@ -40,27 +39,30 @@ public class StringUtil {
             return result;
         }
     }
+
     /**
      * 驼峰转下划线
+     *
      * @return
      */
-    public static String camelToUnderline(String param){
-        if (param==null||"".equals(param.trim())){
+    public static String camelToUnderline(String param) {
+        if (param == null || "".equals(param.trim())) {
             return "";
         }
-        int len=param.length();
-        StringBuilder sb=new StringBuilder(len);
+        int len = param.length();
+        StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
-            char c=param.charAt(i);
-            if (Character.isUpperCase(c)){
+            char c = param.charAt(i);
+            if (Character.isUpperCase(c)) {
                 sb.append("_");
                 sb.append(Character.toLowerCase(c));
-            }else{
+            } else {
                 sb.append(c);
             }
         }
         return sb.toString();
     }
+
     /**
      * 首字母大写
      *
@@ -71,11 +73,24 @@ public class StringUtil {
         if (content == null || content.length() == 0) {
             return "";
         }
-        return content.substring(0, 1).toUpperCase()+ content.substring(1);
+        return content.substring(0, 1).toUpperCase() + content.substring(1);
     }
 
+    /**
+     * 首字母小写
+     *
+     * @param str
+     * @return java.lang.String
+     */
+    public static String lowerFirstCapse(String str) {
+        char[] chars = str.toCharArray();
+        chars[0] += 32;
+        return String.valueOf(chars);
+    }
+
+
     public static void main(String[] args) {
-        System.err.println(capitalized(underLineToCamel("work_order",true)));
+        System.err.println(capitalized(underLineToCamel("work_order", true)));
     }
 
     private static boolean isNeedChange(String content) {
