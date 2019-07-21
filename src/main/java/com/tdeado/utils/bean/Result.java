@@ -5,10 +5,10 @@ import org.apache.commons.lang.StringUtils;
 /**
  * 数据返回结构bean
  */
-public class Result {
+public class Result<T> {
     private int code;
     private String msg;
-    private Object data;
+    private T data;
     public static Result ok(Object object){
         Result ret=new Result();
         ret.setCode(0);
@@ -50,11 +50,11 @@ public class Result {
         }
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 
