@@ -7,19 +7,31 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- *
- */
 public class CalcUtil {
 
     private static final String INTEGER = "[1-9]\\d*";
-    private static final String DECIMAL = "\\d+\\.\\d*?[1-9]+\\d*";
+    private static final String DECIMAL = "\\d+\\.\\d*?[0-9]+\\d*";
     private static final String GLOBAL_SEARCH = ".*";
 
     private static String currentExpression;
 
+    private static final CalcUtil calcUtil;
 
+    static {
+        calcUtil = new CalcUtil();
+    }
 
+    private CalcUtil() {
+    }
+
+    /**
+     * 获取计算器对象
+     *
+     * @return
+     */
+    public static CalcUtil getCalculator() {
+        return calcUtil;
+    }
 
     /**
      * 计算表达式
@@ -28,10 +40,9 @@ public class CalcUtil {
      * @return
      */
     public static String calcExpression(String expression) {
-        Map<String, Object> childStrMap = CalcUtil.parseExpression(expression);
+        Map<String, Object> childStrMap = CalcUtil.getCalculator().parseExpression(expression);
 
         JexlEngine jexlEngine = new JexlBuilder().create();
-        System.out.println(currentExpression);
         JexlExpression jexlExpression = jexlEngine.createExpression(currentExpression);
         JexlContext content = new MapContext(childStrMap);
 
@@ -45,18 +56,18 @@ public class CalcUtil {
      * @param expression
      * @return
      */
-    public static Map<String, Object> parseExpression(String expression) {
+    public Map<String, Object> parseExpression(String expression) {
         Map<String, Object> childStrMap = new HashMap<>();
 
         if (expression != null) {
             currentExpression = expression;
             List<List> strList = new ArrayList<>();
-            if (isStrExits(expression, DECIMAL)) {
-                List<String> childStrings = extractStrings(currentExpression, DECIMAL);
+            if (isStrExits(expression, this.DECIMAL)) {
+                List<String> childStrings = extractStrings(currentExpression, this.DECIMAL);
                 currentExpression = replaceChildString(childStrings, childStrMap, currentExpression);
             }
-            if (isStrExits(expression, INTEGER)) {
-                List<String> childStrings = extractStrings(currentExpression, INTEGER);
+            if (isStrExits(expression, this.INTEGER)) {
+                List<String> childStrings = extractStrings(currentExpression, this.INTEGER);
                 currentExpression = replaceChildString(childStrings, childStrMap, currentExpression);
             }
         }
@@ -68,7 +79,7 @@ public class CalcUtil {
      *
      * @param expression
      */
-    private static String replaceChildString(List<String> childStringList, Map<String, Object> childStrMap, String expression) {
+    private String replaceChildString(List<String> childStringList, Map<String, Object> childStrMap, String expression) {
         if (expression != null) {
             for (int i = 0; i < childStringList.size(); i++) {
                 String child = childStringList.get(i);
@@ -90,8 +101,8 @@ public class CalcUtil {
      * @param pattern
      * @return
      */
-    private static boolean isStrExits(String expression, String pattern) {
-        pattern = GLOBAL_SEARCH + pattern + GLOBAL_SEARCH;
+    private boolean isStrExits(String expression, String pattern) {
+        pattern = this.GLOBAL_SEARCH + pattern + this.GLOBAL_SEARCH;
         return Pattern.matches(pattern, expression);
     }
 
@@ -102,7 +113,7 @@ public class CalcUtil {
      * @param pattern
      * @return
      */
-    private static List<String> extractStrings(String expression, String pattern) {
+    private List<String> extractStrings(String expression, String pattern) {
         List<String> matchStrs = new ArrayList<>();
 
         if (expression != null && pattern != null) {
@@ -111,10 +122,6 @@ public class CalcUtil {
 
             while (matcher.find()) {
                 matchStrs.add(matcher.group());
-            }
-
-            for (int i = 0; i < matchStrs.size(); i++) {
-                System.out.println(matchStrs.get(i));
             }
         }
         return matchStrs;
